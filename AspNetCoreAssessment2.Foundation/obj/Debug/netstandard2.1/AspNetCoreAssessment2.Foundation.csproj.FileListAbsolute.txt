@@ -1,0 +1,13 @@
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\bin\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.deps.json
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\bin\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.dll
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\bin\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.pdb
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\bin\Debug\netstandard2.1\AspNetCoreAssessment2.DomainModel.dll
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\bin\Debug\netstandard2.1\AspNetCoreAssessment2.DomainModel.pdb
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.csproj.AssemblyReference.cache
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.AssemblyInfoInputs.cache
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.AssemblyInfo.cs
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.csproj.CoreCompileInputs.cache
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.csproj.CopyComplete
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.dll
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.pdb
+D:\Code\AspNetCoreAssessment2\AspNetCoreAssessment2.Foundation\obj\Debug\netstandard2.1\AspNetCoreAssessment2.Foundation.GeneratedMSBuildEditorConfig.editorconfig
