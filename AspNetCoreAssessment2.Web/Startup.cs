@@ -64,6 +64,7 @@ namespace AspNetCoreAssessment2.Web
             services.AddSingleton<ResponseTimeHealthCheck>();
 
             services.AddControllersWithViews();
+            services.AddDirectoryBrowser();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -80,6 +81,14 @@ namespace AspNetCoreAssessment2.Web
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age=60000");
+                }
+            });
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -89,10 +98,6 @@ namespace AspNetCoreAssessment2.Web
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "StaticFiles")),
                 RequestPath = "/StaticFiles",
-                OnPrepareResponse = context =>
-                {
-                    context.Context.Response.Headers.Append("Cache-Control", $"public, max-age=60000");
-                }
             });
 
             app.UseDirectoryBrowser(new DirectoryBrowserOptions
