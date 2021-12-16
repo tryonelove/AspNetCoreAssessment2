@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AspNetCoreAssessment2.Foundation.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreAssessment2.Web.Controllers
 {
-    [Authorize]
     public class ImagesController : Controller
     {
         [HttpGet]
+        [Authorize(Policy = AdditionalUserClaims.HasReadRules)]
         public IActionResult Index()
         {
             return View("Images");

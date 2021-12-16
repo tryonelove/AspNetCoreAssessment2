@@ -31,9 +31,9 @@ namespace AspNetCoreAssessment2.Foundation.Services
 
         public async Task<bool> LoginAsync(string email, string password)
         {
-             var result = await _signInManager.PasswordSignInAsync(email, password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(email, password, true, false);
 
-             return result.Succeeded;
+            return result.Succeeded;
         }
 
         public async Task<bool> LogoutAsync()

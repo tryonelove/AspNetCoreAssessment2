@@ -8,14 +8,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AspNetCoreAssessment2.Foundation.Stores
 {
-    public class UserStore : IUserPasswordStore<User>
+    public class UserStore : IUserPasswordStore<User>, IUserEmailStore<User>
     {
-        private readonly IList<User> _users;
-
-        public UserStore()
-        {
-            _users = new List<User>();
-        }
+        private static readonly IList<User> Users = new List<User>();
 
 
         public Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
@@ -26,7 +21,7 @@ namespace AspNetCoreAssessment2.Foundation.Stores
                 throw new ArgumentNullException(nameof(user));
             }
 
-            _users.Add(user);
+            Users.Add(user);
 
             return Task.FromResult(IdentityResult.Success);
         }
@@ -39,9 +34,9 @@ namespace AspNetCoreAssessment2.Foundation.Stores
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var userToUpdate = _users.FirstOrDefault(u => u.Id == user.Id);
-            _users.Remove(userToUpdate);
-            _users.Add(user);
+            var userToUpdate = Users.FirstOrDefault(u => u.Id == user.Id);
+            Users.Remove(userToUpdate);
+            Users.Add(user);
 
             return Task.FromResult(IdentityResult.Success);
         }
@@ -54,7 +49,7 @@ namespace AspNetCoreAssessment2.Foundation.Stores
                 throw new ArgumentNullException(nameof(user));
             }
 
-            _users.Remove(user);
+            Users.Remove(user);
 
             return Task.FromResult(IdentityResult.Success);
         }
@@ -154,7 +149,7 @@ namespace AspNetCoreAssessment2.Foundation.Stores
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            var user = _users.SingleOrDefault(u => u.Id == userId);
+            var user = Users.SingleOrDefault(u => u.Id == userId);
 
             return Task.FromResult(user);
         }
@@ -167,7 +162,7 @@ namespace AspNetCoreAssessment2.Foundation.Stores
                 throw new ArgumentNullException(nameof(normalizedUserName));
             }
 
-            var user = _users.SingleOrDefault(u => u.NormalizedUserName == normalizedUserName);
+            var user = Users.SingleOrDefault(u => u.NormalizedUserName == normalizedUserName);
 
             return Task.FromResult(user);
         }
@@ -186,6 +181,95 @@ namespace AspNetCoreAssessment2.Foundation.Stores
         public void Dispose()
         {
 
+        }
+
+        public Task SetEmailAsync(User user, string email, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (email is null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            user.Email = email;
+
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetEmailAsync(User user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return Task.FromResult(user.Email);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return Task.FromResult(user.EmailConfirmed);
+        }
+
+        public Task SetEmailConfirmedAsync(User user, bool confirmed, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            user.EmailConfirmed = confirmed;
+
+            return Task.CompletedTask;
+        }
+
+        public Task<User> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+        {
+            var user = Users.FirstOrDefault(u => u.NormalizedEmail == normalizedEmail);
+
+            return Task.FromResult(user);
+        }
+
+        public Task<string> GetNormalizedEmailAsync(User user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return Task.FromResult(user.NormalizedEmail);
+        }
+
+        public Task SetNormalizedEmailAsync(User user, string normalizedEmail, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (normalizedEmail is null)
+            {
+                throw new ArgumentNullException(nameof(normalizedEmail));
+            }
+
+            user.NormalizedEmail = normalizedEmail;
+
+            return Task.CompletedTask;
         }
     }
 }

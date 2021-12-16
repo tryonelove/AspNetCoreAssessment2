@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using AspNetCoreAssessment2.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +21,13 @@ namespace AspNetCoreAssessment2.Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+
+        [Authorize]
+        public IActionResult Success()
         {
             return View();
         }

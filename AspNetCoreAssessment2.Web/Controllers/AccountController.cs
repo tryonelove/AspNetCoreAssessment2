@@ -31,12 +31,17 @@ namespace AspNetCoreAssessment2.Web.Controllers
             {
                 Email = registerViewModel.Email,
                 FullName = registerViewModel.FullName,
-                UserName = registerViewModel.Email
+                UserName = registerViewModel.Email,
+                HasReadRules = registerViewModel.HasReadRules
             };
 
-            await _accountService.RegisterAsync(user, registerViewModel.Password);
+            var result = await _accountService.RegisterAsync(user, registerViewModel.Password);
+            if (!result)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Success", "Home");
         }
 
         [HttpGet]

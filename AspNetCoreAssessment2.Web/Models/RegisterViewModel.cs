@@ -12,5 +12,7 @@ namespace AspNetCoreAssessment2.Web.Models
 
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public bool HasReadRules { get; set; }
     }
 }

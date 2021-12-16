@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AspNetCoreAssessment2.DomainModel;
+using AspNetCoreAssessment2.Foundation.Identity;
 using AspNetCoreAssessment2.Foundation.Interfaces;
 using AspNetCoreAssessment2.Foundation.Services;
 using AspNetCoreAssessment2.Foundation.Stores;
@@ -14,7 +15,6 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.FileProviders;
@@ -23,20 +23,12 @@ namespace AspNetCoreAssessment2.Web
 {
     public class Startup
     {
-        private readonly IConfiguration _configuration;
-
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityCore<User>()
                 .AddUserStore<UserStore>()
                 .AddSignInManager()
+                .AddClaimsPrincipalFactory<ReadRulesClaimsPrincipalFactory>()
                 .AddDefaultTokenProviders();
 
             services.Configure<SecurityStampValidatorOptions>(o =>
@@ -55,6 +47,12 @@ namespace AspNetCoreAssessment2.Web
                 {
                     o.Events.OnValidatePrincipal = SecurityStampValidator.ValidateAsync<ITwoFactorSecurityStampValidator>;
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(AdditionalUserClaims.HasReadRules, policy =>
+                    policy.RequireClaim(AdditionalUserClaims.HasReadRules, AdditionalUserClaims.AllowedHasReadRulesValues));
+            });
 
             services.AddScoped<IAccountService, AccountService>();
 
@@ -113,7 +111,7 @@ namespace AspNetCoreAssessment2.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions
                 {
                     ResponseWriter = WriteResponse
                 });

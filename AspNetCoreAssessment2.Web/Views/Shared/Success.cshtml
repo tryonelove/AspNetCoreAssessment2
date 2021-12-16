@@ -1,0 +1,7 @@
+﻿<div class="alert alert-success text-center success-box" role="alert">
+    <h1>Success!</h1>
+    @if (User.Identity != null)
+    {
+        <div>You're now logged in as @User.Identity.Name</div>
+    }
+</div>
